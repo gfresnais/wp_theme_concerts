@@ -1,0 +1,16 @@
+.img-article {
+    height: auto;
+    max-height: 200px;
+    max-width: 100%;
+}
+
+.img-list-posts {
+    height: auto;
+    max-height: 400px;
+    max-width: 100%;
+}
+
+.card-img-top {
+    object-fit: contain;
+    height: 300px;
+}

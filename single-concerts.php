@@ -2,45 +2,71 @@
   get_header();
 ?>
 
-<h1>Page des concerts</h1>
-
 <?php
   if( have_posts() ):
     while( have_posts() ):
       the_post();
 ?>
 
-      <div>
-        <?php the_post_thumbnail(); ?>
-      </div>
-      <h2><?php the_title(); ?></h2>
-      <p><?php the_content(); ?></p>
-      <i><?php the_date(); ?></i>
-      <p><?php the_field('date') ?> €</p>
-      <p><?php the_field('heure-debut') ?></p>
-      <p><?php the_field('heure-fin') ?></p>
-      <p><?php the_field('lieu') ?></p>
-      <div>
-          <p>Artistes présents :</p>
+      <article class="no-gutters py-3">
+        <h1 class="col-12 text-center"><?=the_title();?></h1>
+        <div class="text-center py-3">
+          <img src="<?=get_the_post_thumbnail_url();?>" alt="<?=the_title();?>" 
+              class="img-list-posts img-thumbnail">
+        </div>
+
+        <div class="text-justify py-3"><?=the_content();?></div>
+
+        <div class="col-12 row">
+          <div class="col-3 text-center">
+            <p><strong>Date du concert</strong></p>
+            <p><?=the_field('date');?></p>
+          </div>
+
+          <div class="col-3 text-center">
+            <p><strong>Heure de début</strong></p>
+            <p><?=the_field('heure_debut');?></p>
+          </div>
+
+          <div class="col-3 text-center">
+            <p><strong>Heure de fin</strong></p>
+            <p><?=the_field('heure_fin');?></p>
+          </div>
+
+          <div class="col-3 text-center">
+            <p><strong>Lieu du concert</strong></p>
+            <p><?=the_field('lieu');?></p>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <h2 class="text-center">Artistes présents</h2>
           <?php 
             $fields = get_field('artistes');
-            //var_dump($fields);
             ?>
-            <ul>
+            <div class="card-deck justify-content-center">
               <?php
               foreach($fields as $field):
                 ?>
-                <li>
-                  <a href="<?=the_permalink($field)?>">
-                    <?=get_the_title($field);?>
-                  </a>
-                </li>
-                <br>
+                <div class="col-3 card text-center border-0">
+                  <img src="<?=get_the_post_thumbnail_url($field)?>" 
+                    alt="<?=get_the_title($field)?>" class="card-img-top">
+                  <div class="card-body">
+                    <h3 class="card-title">
+                        <a href="<?=get_the_permalink($field)?>" class="stretched-link">
+                          <?=get_the_title($field)?>
+                        </a>
+                    </h3>
+                  </div>
+                </div>
                 <?php
                 endforeach;
               ?>
-            </ul>
-      </div>
+            </div>
+        </div>
+
+        <i class="col-12">Ajouté le <?php the_date(); ?></i>
+      </article>
 <?php
     endwhile;
   endif;

@@ -27,33 +27,7 @@ function register_navwalker(){
 add_action( 'after_setup_theme', 'register_navwalker' );
 
 
-function lasts_posts_func() {
-	$args = array(
-		'post_type' => 'post',
-		'posts_per_page' => 3,
-		'orderby' => 'date',
-		'order' => 'DESC'
-	);
-
-	$query = new WP_Query($args);
-
-	ob_start();
-
-	echo '<div class="col-12 row">';
-	foreach($query->posts as $post): ?>
-		<article class="col-4 row">
-			<h2 class="title col-12"><?=get_the_title($post)?></h2>
-			<p class="col-12">Rédigé par <?=get_the_author(null, null, $post)?></p>
-		</article>
-	<?php endforeach;
-	echo '</div>';
-
-	$output = ob_get_clean();
-	
-	return $output;
-}
-
-add_shortcode('lasts_posts', 'lasts_posts_func');
+require_once('php/shortcodes.php');
 
 /*
 * Adds menu elements
