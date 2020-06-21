@@ -26,8 +26,11 @@ function register_navwalker(){
 }
 add_action( 'after_setup_theme', 'register_navwalker' );
 
-
+// Add shortcodes defitnions
 require_once('php/shortcodes.php');
+
+// Add my exported ACF fields
+require_once('IMPORT/acf_export.php');
 
 /*
 * Adds menu elements
